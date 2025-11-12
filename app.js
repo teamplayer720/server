@@ -9,7 +9,8 @@ mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: 
 
 
 var db = mongoose.connection;
-var Costume = require("./models/costume");
+var Costume = require("./models/car");
+
 
 
 
@@ -17,6 +18,23 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', function() {
   console.log('Connection to MongoDB succeeded');
 });
+
+
+async function recreateDB(){
+// Delete everything
+await car.deleteMany();
+let instance1 = new
+car({car_make:"toyota", model:'camry',
+cost:15000});
+instance1.save().then(doc=>{
+console.log("First object saved")}
+).catch(err=>{
+console.error(err)
+});
+}
+
+let reseed = true;
+if (reseed) {recreateDB();}
 
 
 var createError = require('http-errors');
@@ -30,7 +48,8 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var artifactsRouter = require('./routes/artifacts'); 
-var gridRouter = require('./routes/grid');
+var gridRouter = require('./routes/grid'); 
+var resourceRouter = require('./routes/resource');
 
 var app = express();
 
@@ -50,6 +69,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/artifacts', artifactsRouter);
 app.use('/grid', gridRouter);
+app.use('/resource',resourceRouter);
 
 
 app.use(function(req, res, next) {
