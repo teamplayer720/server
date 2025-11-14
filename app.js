@@ -27,12 +27,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 require('dotenv').config();
-const mongoose = require('mongoose');
-
-
 const connectionString = process.env.MONGO_CON;
-
-
+const mongoose = require('mongoose');
 mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
@@ -78,7 +74,9 @@ async function recreateDB(){
 
 
 let reseed = true;
-if (reseed) {recreateDB();}
+if (reseed) {
+  recreateDB();
+}
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
