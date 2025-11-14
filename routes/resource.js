@@ -6,7 +6,7 @@ var car_controller = require('../controllers/car');
 /// API ROUTE ///
 // GET resources base.
 router.get('/', api_controller.api);
-/// COSTUME ROUTES ///
+/// CAR ROUTES ///
 // POST request for creating a Costume.
 router.post('/car', car_controller.car_create_post);
 // DELETE request to delete Costume.

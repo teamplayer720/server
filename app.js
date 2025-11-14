@@ -1,42 +1,3 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
-
-
-const connectionString = process.env.MONGO_CON;
-
-
-mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
-
-
-var db = mongoose.connection;
-var Costume = require("./models/car");
-
-
-
-
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', function() {
-  console.log('Connection to MongoDB succeeded');
-});
-
-
-async function recreateDB(){
-// Delete everything
-await car.deleteMany();
-let instance1 = new
-car({car_make:"toyota", model:'camry',
-cost:15000});
-instance1.save().then(doc=>{
-console.log("First object saved")}
-).catch(err=>{
-console.error(err)
-});
-}
-
-let reseed = true;
-if (reseed) {recreateDB();}
-
-
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -47,10 +8,11 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var carRouter = require('./routes/car');
 var artifactsRouter = require('./routes/artifacts'); 
 var gridRouter = require('./routes/grid'); 
 var resourceRouter = require('./routes/resource');
-
+var Car = require("./models/car");
 var app = express();
 
 
@@ -64,12 +26,65 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+require('dotenv').config();
+const mongoose = require('mongoose');
+
+
+const connectionString = process.env.MONGO_CON;
+
+
+mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+
+
+var db = mongoose.connection;
+var car = require("./models/car");
+
+
+
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', function() {
+  console.log('Connection to MongoDB succeeded');
+}); 
+
+async function recreateDB(){
+// Delete everything
+  await Car.deleteMany();
+  let instance1 = new
+  Car({make:"toyota", model:"camry", cost:"15000"});
+  instance1.save().then(doc=>{console.log("First object saved")}).catch(err=>{
+    console.error(err)
+  }); 
+}
+
+  let instance2 = new
+  car({car_make:"mercedes", model:'e440',
+  cost:90000});
+  instance2.save().then(doc=>{
+  console.log("Second object saved")}
+  ).catch(err=>{
+  console.error(err)
+  }); 
+
+  let instance3 = new
+  car({car_make:"ferrari", model:'sf350',
+  cost:300000});
+  instance3.save().then(doc=>{
+  console.log("Third object saved")}
+  ).catch(err=>{
+  console.error(err)
+  });
+
+
+
+let reseed = true;
+if (reseed) {recreateDB();}
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/artifacts', artifactsRouter);
 app.use('/grid', gridRouter);
-app.use('/resource',resourceRouter);
+app.use('/resource', resourceRouter);
 
 
 app.use(function(req, res, next) {

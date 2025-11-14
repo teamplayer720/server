@@ -1,0 +1,13 @@
+extends layout
+
+block content 
+h1= title 
+
+- let items = results 
+- console.log(items)
+
+each item in items
+    div.container-fluid
+        div.col-sm-2  #{item.make}
+        div.col-sm-2 #{item.model} 
+        div.col-sm-2 #{item cost}
