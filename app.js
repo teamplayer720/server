@@ -12,6 +12,7 @@ var carRouter = require('./routes/car');
 var artifactsRouter = require('./routes/artifacts'); 
 var gridRouter = require('./routes/grid'); 
 var resourceRouter = require('./routes/resource');
+
 var Car = require("./models/car");
 var app = express();
 
@@ -51,11 +52,9 @@ async function recreateDB(){
   instance1.save().then(doc=>{console.log("First object saved")}).catch(err=>{
     console.error(err)
   }); 
-}
 
   let instance2 = new
-  car({car_make:"mercedes", model:'e440',
-  cost:90000});
+  car({make:"mercedes", model:'e440', cost:'90000'});
   instance2.save().then(doc=>{
   console.log("Second object saved")}
   ).catch(err=>{
@@ -63,14 +62,13 @@ async function recreateDB(){
   }); 
 
   let instance3 = new
-  car({car_make:"ferrari", model:'sf350',
-  cost:300000});
+  car({make:"ferrari", model:'sf350', cost:'300000'});
   instance3.save().then(doc=>{
   console.log("Third object saved")}
   ).catch(err=>{
   console.error(err)
   });
-
+}
 
 
 let reseed = true;
@@ -80,6 +78,7 @@ if (reseed) {
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/car',carRouter);
 app.use('/artifacts', artifactsRouter);
 app.use('/grid', gridRouter);
 app.use('/resource', resourceRouter);
