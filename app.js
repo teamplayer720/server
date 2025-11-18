@@ -54,7 +54,7 @@ async function recreateDB(){
   }); 
 
   let instance2 = new
-  car({make:"mercedes", model:'e440', cost:'90000'});
+  Car({make:"mercedes", model:'e440', cost:'90000'});
   instance2.save().then(doc=>{
   console.log("Second object saved")}
   ).catch(err=>{
@@ -62,7 +62,7 @@ async function recreateDB(){
   }); 
 
   let instance3 = new
-  car({make:"ferrari", model:'sf350', cost:'300000'});
+  Car({make:"ferrari", model:'sf350', cost:'300000'});
   instance3.save().then(doc=>{
   console.log("Third object saved")}
   ).catch(err=>{

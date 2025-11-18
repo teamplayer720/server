@@ -122,7 +122,7 @@ exports.car_view_one_Page = async function(req, res) {
     console.log("single view for id " + req.query.id)
     try{
         result = await car.findById( req.query.id)
-        res.render('cardetail',
+        res.render('car_detail',
             { title: 'Car Detail', toShow: result });
     }
     catch(err){
