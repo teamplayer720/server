@@ -13,15 +13,15 @@ exports.car_list = async function(req, res) {
 };
 
 // for a specific Costume.
-exports.car_detail = function(req, res) {
+exports.car_detail = async function(req, res) {
 res.send('NOT IMPLEMENTED: car detail: ' + req.params.id);
 };
 // Handle Costume create on POST.
-exports.car_create_post = function(req, res) {
+exports.car_create_post = async function(req, res) {
 res.send('NOT IMPLEMENTED: car create POST');
 };
 // Handle Costume delete from on DELETE.
-exports.car_delete = function(req, res) {
+exports.car_delete = async function(req, res) {
 res.send('NOT IMPLEMENTED: car delete DELETE ' + req.params.id);
 };
 // Handle Costume update form on PUT.
@@ -134,7 +134,7 @@ exports.car_view_one_Page = async function(req, res) {
 //Handle building the view for creating a costume.
 // No body, no in path parameter, no query.
 // Does not need to be async
-exports.car_create_Page = function(req, res) {
+exports.car_create_Page = async function(req, res) {
     console.log("create view")
     try{
         res.render('car_create', { title: 'Car Create'});

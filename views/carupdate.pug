@@ -14,11 +14,11 @@ block content
     - let actionid = "/resource/car/" + carid
     form(id='CarForm', action= actionid, method="PUT")
         div.form-group
-            label.carAttr(for='car_type') Car type
-            input#car_type(type='text', name='car_type', value= car_type )
+            label.carAttr(for='car_make') Car make
+            input#car_make(type='text', name='car_make', value= car_make )
         div.form-group
-            label.carAttr(for='size') Car size
-            input#size(type='text', name='size', value= carsize )
+            label.carAttr(for='model') Car model
+            input#model(type='text', name='model', value= carmodel )
         div.form-group
             label.carAttr(for='cost') Car cost
             input#cost(type='number', name='cost', value= carcost )

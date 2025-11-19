@@ -3,19 +3,19 @@ extends layout
 block content
     h1= title
 
-    form(id='CostumeForm', action="/resource/costumes", method="POST")
+    form(id='CarForm', action="/resource/car", method="POST")
         div.form-group
-            label.costumeAttr(for='costume_type') Costume type
-            input#costume_type(type='text', name='costume_type')
+            label.carAttr(for='car_make') Car type
+            input#car_make(type='text', name='car_make')
         div.form-group
-            label.costumeAttr(for='size') Costume size
-            input#size(type='text', name='size')
+            label.carAttr(for='model') Car model
+            input#model(type='text', name='model')
         div.form-group
-            label.costumeAttr(for='cost') Costume cost
+            label.carAttr(for='cost') Car cost
             input#cost(type='number', name='cost')
     input(type="submit")
 script.
-    document.forms['CostumeForm'].addEventListener('submit', (event) => {
+    document.forms['CarForm'].addEventListener('submit', (event) => {
         event.preventDefault();
         // TODO do something here to show user that form is being submitted
         fetch(event.target.action, {
@@ -24,7 +24,7 @@ script.
         }).then((resp) => {
         return resp.json(); // or resp.text() or whatever the server sends
         }).then((body) => {
-        alert("Save succeded")
+        alert("Save succeeded")
         // TODO handle body
         }).catch((error) => {
         // TODO handle error
