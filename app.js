@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 require('dotenv').config();
 const connectionString = process.env.MONGO_CON;
 const mongoose = require('mongoose');
-mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(connectionString);//, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 var db = mongoose.connection;

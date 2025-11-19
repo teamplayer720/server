@@ -150,7 +150,7 @@ catch(err){
 exports.car_update_Page = async function(req, res) {
     console.log("update view for item "+req.query.id)
     try{
-        let result = await Costume.findById(req.query.id)
+        let result = await Car.findById(req.query.id)
         res.render('car_update', { title: 'Costume Update', toShow: result });
     }
 catch(err){
