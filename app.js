@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 
 
@@ -13,7 +15,7 @@ var artifactsRouter = require('./routes/artifacts');
 var gridRouter = require('./routes/grid'); 
 var resourceRouter = require('./routes/resource');
 
-var Car = require("./models/car");
+var car = require("./models/car");
 var app = express();
 
 
@@ -46,15 +48,15 @@ db.once('open', function() {
 
 async function recreateDB(){
 // Delete everything
-  await Car.deleteMany();
+  await car.deleteMany();
   let instance1 = new
-  Car({make:"toyota", model:"camry", cost:"15000"});
+  car({make:"toyota", model:"camry", cost:"15000"});
   instance1.save().then(doc=>{console.log("First object saved")}).catch(err=>{
     console.error(err)
   }); 
 
   let instance2 = new
-  Car({make:"mercedes", model:'e440', cost:'90000'});
+  car({make:"mercedes", model:'e440', cost:'90000'});
   instance2.save().then(doc=>{
   console.log("Second object saved")}
   ).catch(err=>{
@@ -62,7 +64,7 @@ async function recreateDB(){
   }); 
 
   let instance3 = new
-  Car({make:"ferrari", model:'sf350', cost:'300000'});
+  car({make:"ferrari", model:'sf350', cost:'300000'});
   instance3.save().then(doc=>{
   console.log("Third object saved")}
   ).catch(err=>{
@@ -75,6 +77,27 @@ let reseed = true;
 if (reseed) {
   recreateDB();
 }
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    Account.findOne({ username: username })
+      .then(function (user){
+        if (err) { return done(err); }
+        if (!user) {
+          return done(null, false, { message: 'Incorrect username.' });
+        }
+        if (!user.validPassword(password)) {
+          return done(null, false, { message: 'Incorrect password.' });
+        }
+        return done(null, user);
+      })
+      .catch(function(err){
+        return done(err)
+    })
+  })
+)
+
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
